@@ -13,6 +13,17 @@ class CompteController{
             
         }
     }
+
+    async getCompteByID(request, result){
+        try{
+            const compte = await CompteService.getCompteByID(request.params.id);
+            result.json(compte);
+        } catch(error) {
+            result.status(500);
+            result.json({error: "Une erreur est intervenue lors de la recuperation des comptes"})
+            
+        }
+    }
 }
 
 module.exports = new CompteController(); 

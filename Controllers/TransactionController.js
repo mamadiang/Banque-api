@@ -13,6 +13,17 @@ class TransactionController{
             
         }
     }
+
+    async getTransactionByID(request, result){
+        try{
+            const transaction = await TransactionService.getTransactionByID(request.params.id);
+            result.json(transaction);
+        } catch(error) {
+            result.status(500);
+            result.json({error: "Une erreur est intervenue lors de la recuperation des comptes"})
+            
+        }
+    }
 }
 
 module.exports = new TransactionController(); 

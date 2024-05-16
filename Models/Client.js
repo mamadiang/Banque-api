@@ -64,4 +64,6 @@ Client.init({
 );
 
 Client.hasMany(Compte, { as : "comptes", foreignKey : "FK_Client"})
+
+
 module.exports = Client; 

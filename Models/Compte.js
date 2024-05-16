@@ -44,4 +44,6 @@ Compte.init({
     timestamps: false
 });
 
+
+
 module.exports = Compte;
