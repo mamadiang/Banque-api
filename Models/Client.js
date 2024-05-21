@@ -4,9 +4,13 @@ const {Model, DataTypes} = require('sequelize');
 // Vient de nitre fichier Sequelize.js
 const sequelize = require('../Config/Sequelize');
 const Compte = require('./Compte');
+const bcrypt = require('bcrypt');
 
 class Client extends Model{
 
+    async validatePassword(password){
+        return await bcrypt.compare(password, this.Password);
+    }
 }
 
 Client.init({
@@ -42,6 +46,11 @@ Client.init({
         allowNull : true
     },
 
+    Password:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
     Adresse :{
         type : DataTypes.STRING,
         allowNull : true
@@ -62,7 +71,17 @@ Client.init({
     sequelize,
     modelName : 'Client',
     tableName: 'client',
-    timestamps: false
+    timestamps: false,
+    hooks: {
+        beforeCreate: async(client) => {
+            client.Password = await bcrypt.hash(client.Password, 10);
+        },
+        beforeUpdate: async (client) => {
+            if(client.changed('Password')){
+                client.Password = await bcrypt.hash(client.Password, 10)
+            }
+        }
+    }
 }
 );
 

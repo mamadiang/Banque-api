@@ -25,14 +25,17 @@ const app = express();
 const clientRoute = require('./Routes/ClientRoute');
 const compteRoute = require('./Routes/CompteRoute');
 const transactionRoute = require('./Routes/TransactionRoute');
+const authenticateRoute = require('./Routes/AuthenticateRoute');
 
 
 
 app.use(express.json());
 
-app.use('/clients', clientRoute)
-app.use('/compte', compteRoute)
-app.use('/transaction', transactionRoute)
+
+app.use('/clients', AuthenticateController.authenticateToken, clientRoute)
+app.use('/compte', AuthenticateController.authenticateToken, compteRoute)
+app.use('/transaction', AuthenticateController.authenticateToken, transactionRoute)
+app.use('/auth', authenticateRoute)
 
 
 module.exports = app; 
