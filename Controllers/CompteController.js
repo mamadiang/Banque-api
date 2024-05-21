@@ -24,6 +24,19 @@ class CompteController{
             
         }
     }
+
+    async addCompte(request, result){
+        try{
+            const compte = await CompteService.addCompte(request.body); 
+            result.json(compte);
+        } catch(error) {
+            console.log(error)
+            result.status(500);
+            result.json({error: "Une erreur est intervenue lors de l'ajout de compte"})
+            
+        }
+    }
+    
 }
 
 module.exports = new CompteController(); 

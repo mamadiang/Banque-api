@@ -53,8 +53,11 @@ Client.init({
         allowNull : true
     },
 
+    FK_Client: {
+        type : DataTypes.INTEGER,
+        allowNull: false
+    },
     
-
 },{
     sequelize,
     modelName : 'Client',

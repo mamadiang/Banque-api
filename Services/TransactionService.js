@@ -8,6 +8,10 @@ class TransactionService{
     async getTransactionByID(compteID){
         return await Transaction.findByPk(compteID)
     }
+
+    async addTransaction(transactiondata){
+        return await Transaction.create(transactiondata)
+    }
 }
 
 module.exports = new TransactionService();
